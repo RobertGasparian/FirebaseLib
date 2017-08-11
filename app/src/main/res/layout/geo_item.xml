@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lat_title"
+        android:text="Lat: "/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/long_title"
+        android:text="Long: "
+        android:layout_below="@id/lat_title"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/rad_title"
+        android:text="Radius: "
+        android:layout_below="@id/long_title"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/latitude"
+        android:text="0000000"
+        android:layout_toEndOf="@id/lat_title"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/longitude"
+        android:text="111111"
+        android:layout_toEndOf="@id/long_title"
+        android:layout_below="@id/latitude"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/radius"
+        android:text="22222"
+        android:layout_toEndOf="@id/rad_title"
+        android:layout_below="@id/longitude"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/geo_id"
+        android:text="id"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_below="@id/rad_title"
+        android:layout_marginTop="5dp"
+        android:background="@color/colorPrimary"/>
+
+
+
+</RelativeLayout>
