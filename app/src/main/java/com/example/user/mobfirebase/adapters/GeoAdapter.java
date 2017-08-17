@@ -6,10 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.example.geofencing.models.GeofenceInfo;
 import com.example.user.mobfirebase.R;
-
 import java.util.List;
 
 /**
@@ -40,7 +38,7 @@ public class GeoAdapter extends RecyclerView.Adapter<GeoAdapter.GeoHolder>{
         holder.latitude.setText(item.getLatitude());
         holder.longitude.setText(item.getLongitude());
         holder.radius.setText(item.getRadius());
-        holder.id.setText(String.valueOf(item.getId()));
+        holder.id.setText(item.getId());
 
     }
 

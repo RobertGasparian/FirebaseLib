@@ -1,17 +1,9 @@
 package com.example.user.mobfirebase.services;
-import android.util.Log;
-import android.widget.Toast;
+import android.content.Intent;
 
-import com.example.geofencing.controllers.GeoController;
-import com.example.geofencing.helpers.DBHelper;
-import com.example.geofencing.models.GeofenceInfo;
+import com.example.geofencing.services.HandleJsonService;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import static android.R.attr.radius;
 
 /**
  * Created by User on 8/9/2017.
@@ -20,13 +12,13 @@ import static android.R.attr.radius;
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
 
+
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-        Log.d("rob","mtav");
         String coordinates = remoteMessage.getNotification().getBody();
-
-        GeoController geoController = GeoController.getController();
-        geoController.handleJson(coordinates,getApplicationContext());
+        Intent intent = new Intent(MyFirebaseMessagingService.this, HandleJsonService.class);
+        intent.putExtra(HandleJsonService.MESSAGE,coordinates);
+        startService(intent);
 
     }
 }

@@ -13,7 +13,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
-import com.example.geofencing.controllers.GeoController;
+import com.example.geofencing.helpers.DBHelper;
 import com.example.geofencing.models.GeofenceInfo;
 import com.example.user.mobfirebase.R;
 import com.example.user.mobfirebase.adapters.GeoAdapter;
@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private List<GeofenceInfo> geoList;
     private GeoAdapter adapter;
     private SwipeRefreshLayout refreshLayout;
-
+    private DBHelper dbHelper;
 
 
     private final int LOCATION_ACCESS = 1;
@@ -39,11 +39,11 @@ public class MainActivity extends AppCompatActivity {
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 this.requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_ACCESS);
                 return;
-            }else {
+            } else {
                 init();
             }
 
-        }else{
+        } else {
             init();
         }
     }
@@ -51,23 +51,26 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                adapter.refreshData(GeoController.getController().getCurrentGeofences(MainActivity.this));
-                refreshLayout.setRefreshing(false);
-            }
-        });
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                @Override
+                public void onRefresh() {
+                    adapter.refreshData(dbHelper.getAllGeofences());
+                    refreshLayout.setRefreshing(false);
+                }
+            });
+        }
     }
 
-    private void init(){
-        recyclerView = (RecyclerView)findViewById(R.id.geo_rv);
-        refreshLayout = (SwipeRefreshLayout)findViewById(R.id.swipe_refresh_main);
-        GeoController geoController = GeoController.getController();
-        geoList = geoController.getCurrentGeofences(this);
-        adapter = new GeoAdapter(geoList,MainActivity.this);
+    private void init() {
+        recyclerView = (RecyclerView) findViewById(R.id.geo_rv);
+        refreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_main);
+        dbHelper = new DBHelper(this);
+        geoList = dbHelper.getAllGeofences();
+        adapter = new GeoAdapter(geoList, MainActivity.this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
+
 
     }
 
@@ -75,15 +78,15 @@ public class MainActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        switch (requestCode){
+        switch (requestCode) {
 
             case LOCATION_ACCESS:
-                if(grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
                     init();
 
-                }else{
+                } else {
                     Toast.makeText(this, "Access denied", Toast.LENGTH_SHORT).show();
                     Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
@@ -91,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
                         public void run() {
                             finish();
                         }
-                    },2500);
+                    }, 2500);
                 }
         }
     }

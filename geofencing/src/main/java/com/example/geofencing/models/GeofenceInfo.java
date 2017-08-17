@@ -10,23 +10,18 @@ public class GeofenceInfo {
     private String latitude;
     private String longitude;
     private String radius;
-    private int id;
+    private String id;
 
     public GeofenceInfo() {
     }
 
-    public GeofenceInfo(int id, String latitude, String longitude, String radius) {
+    public GeofenceInfo(String id, String latitude, String longitude, String radius) {
         this.latitude = latitude;
         this.longitude = longitude;
         this.radius = radius;
         this.id = id;
     }
 
-    public GeofenceInfo(String latitude, String longitude, String radius) {
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.radius = radius;
-    }
 
     public String getLatitude() {
         return latitude;
@@ -52,11 +47,11 @@ public class GeofenceInfo {
         this.radius = radius;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

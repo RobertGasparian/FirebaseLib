@@ -15,6 +15,8 @@ import java.util.List;
 
 public class GeoFenceReceiver extends BroadcastReceiver {
 
+    private final int NOTIFICATION_REQ_CODE = 0;
+
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -27,15 +29,28 @@ public class GeoFenceReceiver extends BroadcastReceiver {
                 List<Geofence> triggeringGeofences = geofencingEvent.getTriggeringGeofences();
                 NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
                 builder.setContentTitle("Enter")
-                        .setContentText(triggeringGeofences.get(triggeringGeofences.size()-1).getRequestId())
+                        .setContentText(getIdString(triggeringGeofences))
                         .setAutoCancel(true)
                         .setSmallIcon(R.drawable.ic_place_black_24dp);
 
                 NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-                notificationManager.notify(0, builder.build());
+                notificationManager.notify(NOTIFICATION_REQ_CODE, builder.build());
             }
         }
 
+    }
+
+    private String getIdString(List<Geofence> geofences){
+
+        String ids="";
+        for (Geofence geofence :
+                geofences) {
+            ids=ids+", " + geofence.getRequestId();
+        }
+
+        ids=ids+".";
+
+        return ids;
     }
 
 
