@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/polygon_order"
+        android:text="order: "
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/polygon_lat"
+        android:text="latitude: "
+        android:layout_below="@id/polygon_order"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/polygon_long"
+        android:text="longitude: "
+        android:layout_below="@id/polygon_lat"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/polygon_order_text"
+        android:text="order_text"
+        android:layout_toEndOf="@id/polygon_order"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/polygon_lat_text"
+        android:text="lat_text"
+        android:layout_below="@id/polygon_order"
+        android:layout_toEndOf="@id/polygon_lat"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/polygon_long_text"
+        android:text="long_text"
+        android:layout_below="@id/polygon_lat"
+        android:layout_toEndOf="@id/polygon_long"
+        />
+
+
+
+
+
+</RelativeLayout>

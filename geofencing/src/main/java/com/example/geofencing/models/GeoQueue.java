@@ -9,10 +9,10 @@ public class GeoQueue {
     private String geoId;
     private int id;
     private int action;
-    private String JSON=null;
+    private String JSON = null;
 
 
-    public GeoQueue(int id, String geoId,  int action, String JSON) {
+    public GeoQueue(int id, String geoId, int action, String JSON) {
         this.geoId = geoId;
         this.id = id;
         this.action = action;

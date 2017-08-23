@@ -1,7 +1,7 @@
 package com.example.geofencing.models;
 
 /**
- * Created by User on 8/11/2017.
+ * Created by Rob on 8/11/2017.
  */
 
 public class GeofenceInfo {
@@ -55,15 +55,15 @@ public class GeofenceInfo {
         this.id = id;
     }
 
-    public double getLatitudeDouble(){
+    public double getLatitudeDouble() {
         return Double.valueOf(latitude);
     }
 
-    public double getLongitudeDouble(){
+    public double getLongitudeDouble() {
         return Double.valueOf(longitude);
     }
 
-    public float getRadiusFloat(){
+    public float getRadiusFloat() {
         return Float.valueOf(radius);
     }
 }

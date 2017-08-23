@@ -1,22 +1,21 @@
 package com.example.user.mobfirebase.activities;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.os.Build;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.Toast;
-
 import com.example.geofencing.helpers.DBHelper;
 import com.example.geofencing.models.GeofenceInfo;
 import com.example.user.mobfirebase.R;
-import com.example.user.mobfirebase.adapters.GeoAdapter;
+import com.example.user.mobfirebase.adapters.GeofenceListAdapter;
 
 import java.util.List;
 
@@ -24,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private List<GeofenceInfo> geoList;
-    private GeoAdapter adapter;
+    private GeofenceListAdapter adapter;
     private SwipeRefreshLayout refreshLayout;
     private DBHelper dbHelper;
 
@@ -35,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        if (Build.VERSION.SDK_INT >= 23) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 this.requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_ACCESS);
                 return;
@@ -67,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         refreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_main);
         dbHelper = new DBHelper(this);
         geoList = dbHelper.getAllGeofences();
-        adapter = new GeoAdapter(geoList, MainActivity.this);
+        adapter = new GeofenceListAdapter(geoList, MainActivity.this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 
@@ -87,14 +86,19 @@ public class MainActivity extends AppCompatActivity {
                     init();
 
                 } else {
-                    Toast.makeText(this, "Access denied", Toast.LENGTH_SHORT).show();
-                    Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            finish();
-                        }
-                    }, 2500);
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    builder.setTitle(R.string.access_denied)
+                            .setMessage(R.string.dialog_message)
+                            .setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    MainActivity.this.finish();
+                                }
+                            });
+                    AlertDialog alertDialog = builder.create();
+                    alertDialog.show();
+
                 }
         }
     }
