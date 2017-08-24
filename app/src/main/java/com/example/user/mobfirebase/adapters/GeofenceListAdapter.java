@@ -8,9 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import com.example.geofencing.models.GeofenceInfo;
+import com.example.polygon_monitor.models.GeofenceInfo;
 import com.example.user.mobfirebase.R;
-import com.example.user.mobfirebase.activities.DetailedActivity;
+import com.example.user.mobfirebase.activities.PolygonListActivity;
 
 import java.util.List;
 
@@ -46,8 +46,8 @@ public class GeofenceListAdapter extends RecyclerView.Adapter<GeofenceListAdapte
         holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, DetailedActivity.class);
-                intent.putExtra(DetailedActivity.GEO_ID,item.getId());
+                Intent intent = new Intent(context, PolygonListActivity.class);
+                intent.putExtra(PolygonListActivity.GEO_ID,item.getId());
                 context.startActivity(intent);
             }
         });

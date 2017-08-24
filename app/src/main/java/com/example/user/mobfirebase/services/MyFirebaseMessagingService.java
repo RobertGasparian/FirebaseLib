@@ -1,6 +1,6 @@
 package com.example.user.mobfirebase.services;
 
-import com.example.geofencing.controllers.LibController;
+import com.example.polygon_monitor.controllers.PolygonMonitorController;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -15,7 +15,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         String message = remoteMessage.getNotification().getBody();
-        LibController libController = LibController.getController();
-        libController.setMessage(MyFirebaseMessagingService.this,message);
+        PolygonMonitorController polygonMonitorController = PolygonMonitorController.getInstance();
+        polygonMonitorController.handleFirebaseMessage(MyFirebaseMessagingService.this,message);
     }
 }
