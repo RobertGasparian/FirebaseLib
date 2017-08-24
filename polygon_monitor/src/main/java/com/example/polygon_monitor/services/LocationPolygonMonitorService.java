@@ -96,7 +96,11 @@ public class LocationPolygonMonitorService extends Service {
         }
 
         if (intent.getAction().equals(GeofenceEventReceiver.ADD_POLYGON)) {
+<<<<<<< HEAD:polygon_monitor/src/main/java/com/example/polygon_monitor/services/LocationPolygonMonitorService.java
             List<LatLng> polyList = HelpersPolyUtil.decode(intent.getStringExtra(GeofenceEventReceiver.ENCODED_POLYGON));
+=======
+            List<LatLng> polyList = HelpersPolyUtil.decode(intent.getStringExtra(GeofenceEventReceiver.POLYGON_TO_STRING));
+>>>>>>> f2841edd66faeee856f032c9f38e83de8bd92bfb:polygon_monitor/src/main/java/com/example/polygon_monitor/services/LocationPolygonMonitorService.java
             addPolygon(intent.getStringExtra(GeofenceEventReceiver.GEO_ID), polyList);
         } else if (intent.getAction().equals(GeofenceEventReceiver.DELETE_POLYGON)) {
             Log.d(PolygonMonitorController.POLYGON_MONITOR_TAG, "starting deleting" + intent.getStringExtra(GeofenceEventReceiver.GEO_ID));

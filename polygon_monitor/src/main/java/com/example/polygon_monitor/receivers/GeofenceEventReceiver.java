@@ -25,7 +25,11 @@ public class GeofenceEventReceiver extends BroadcastReceiver {
     public static final String ENTER_POLYGON = "com.example.polygon_monitor.receivers.ENTER_POLYGON_INTENT";
     public static final String ADD_POLYGON = "add polygon";
     public static final String DELETE_POLYGON = "delete polygon";
+<<<<<<< HEAD:polygon_monitor/src/main/java/com/example/polygon_monitor/receivers/GeofenceEventReceiver.java
     public static final String ENCODED_POLYGON = "encoded_polygon";
+=======
+    public static final String POLYGON_TO_STRING = "polygonString";
+>>>>>>> f2841edd66faeee856f032c9f38e83de8bd92bfb:polygon_monitor/src/main/java/com/example/polygon_monitor/receivers/GeofenceEventReceiver.java
     public static final String GEO_ID = "geoId";
 
 
@@ -43,11 +47,19 @@ public class GeofenceEventReceiver extends BroadcastReceiver {
                 for (Geofence triggeredGeofence :
                         triggeringGeofences) {
                     List<LatLng> polygon = dbHelper.getPolygon(triggeredGeofence.getRequestId());
+<<<<<<< HEAD:polygon_monitor/src/main/java/com/example/polygon_monitor/receivers/GeofenceEventReceiver.java
                     String encodedPolygon = HelpersPolyUtil.encode(polygon);
                     Intent serviceIntent = new Intent(context, LocationPolygonMonitorService.class);
                     serviceIntent.setAction(ADD_POLYGON);
                     Log.d(PolygonMonitorController.POLYGON_MONITOR_TAG, "geo enter - " + triggeredGeofence.getRequestId());
                     serviceIntent.putExtra(ENCODED_POLYGON, encodedPolygon);
+=======
+                    String polygonToString = HelpersPolyUtil.encode(polygon);
+                    Intent serviceIntent = new Intent(context, LocationPolygonMonitorService.class);
+                    serviceIntent.setAction(ADD_POLYGON);
+                    Log.d(PolygonMonitorController.POLYGON_MONITOR_TAG, "geo enter - " + triggeredGeofence.getRequestId());
+                    serviceIntent.putExtra(POLYGON_TO_STRING, polygonToString);
+>>>>>>> f2841edd66faeee856f032c9f38e83de8bd92bfb:polygon_monitor/src/main/java/com/example/polygon_monitor/receivers/GeofenceEventReceiver.java
                     serviceIntent.putExtra(GEO_ID, triggeredGeofence.getRequestId());
                     context.startService(serviceIntent);
                 }
